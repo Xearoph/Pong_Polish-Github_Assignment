@@ -497,13 +497,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e421d39aa833bcb44afbc8888cecfb8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallLeft: {fileID: 1815845509}
-  wallRight: {fileID: 1305943956}
-  goalSoundEffects:
-  - {fileID: 8300000, guid: 7f4780058a866fa4aa19e247edf99ed0, type: 3}
-  - {fileID: 8300000, guid: 8278e591aeb73ad45b335d61553c0324, type: 3}
-  - {fileID: 8300000, guid: caac126b148217b42a867479a524f593, type: 3}
-  - {fileID: 8300000, guid: 848e5e284eeefd141b084a44e0313db7, type: 3}
+  player: {fileID: 141430773}
 --- !u!1 &983938420
 GameObject:
   m_ObjectHideFlags: 0
