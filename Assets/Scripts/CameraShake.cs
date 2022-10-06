@@ -20,7 +20,7 @@ public class CameraShake : MonoBehaviour
     void Start()
     {
         // save the camera's startposition.
-        cameraStartPosition = mainCamera.transform.position;
+        cameraStartPosition = mainCamera.position;
         
     }
 
@@ -44,7 +44,7 @@ public class CameraShake : MonoBehaviour
                 // calculate random values for the x & y axis.
                 float x = Random.Range(-1f, 1f) * shakePower;
                 float y = Random.Range(-1f, 1f) * shakePower;
-                mainCamera.transform.position = new Vector2(x, y);
+                mainCamera.transform.position = new Vector3(x, y, -10);
             }
             else
             {
