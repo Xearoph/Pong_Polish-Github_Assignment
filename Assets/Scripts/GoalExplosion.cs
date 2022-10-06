@@ -15,7 +15,6 @@ public class GoalExplosion : MonoBehaviour
         leftPLayer = GameObject.FindGameObjectWithTag("PlayerLeft").GetComponent<Transform>();
         rightPLayer = GameObject.FindGameObjectWithTag("PlayerRight").GetComponent<Transform>();
         objToSpawn = new GameObject("empty object");
-
     }
 
     // Update is called once per frame
