@@ -5,9 +5,11 @@ using UnityEngine;
 public class LevelColour : MonoBehaviour
 {
     public GameObject[] walls;
+    public MeshRenderer materialChange;
     private void Start()
     {
         walls = GameObject.FindGameObjectsWithTag("Wall" + "BoundRight" + "BoundLeft");
+        materialChange = GetComponent<MeshRenderer>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -19,6 +21,6 @@ public class LevelColour : MonoBehaviour
     }
     void ChangeColour()
     {
-
+        materialChange.material.color = Random.ColorHSV(0f, 1f, 1f, 1);
     }
 }
