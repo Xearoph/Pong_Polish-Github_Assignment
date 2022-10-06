@@ -12,16 +12,17 @@ public class SpaceBarSound : MonoBehaviour
     {
         SpaceBarSounds = gameObject.AddComponent<AudioSource>();
         SpaceBarSounds.clip = Resources.Load("Audio/SpaceBarSound") as AudioClip;
-        SpaceBarSounds.Play();
+        
     }
 
     void Update()
     {
        
         
-        if (Input.GetKeyDown("Space"))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             SpaceBarSounds.Play();
+
         }
     }
     
