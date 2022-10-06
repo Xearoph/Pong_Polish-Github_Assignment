@@ -5,16 +5,24 @@ using UnityEngine;
 
 public class SpaceBarSound : MonoBehaviour
 {
-    public AudioClip[] soundFX;
+    public AudioClip soundFX;
+    public AudioSource SpaceBarSounds;
 
-
-    private void Update()
+    void Start()
     {
-        if (Input.GetButtonDown("Space"))
-        {
-           
-        }
+        SpaceBarSounds = gameObject.AddComponent<AudioSource>();
+        SpaceBarSounds.clip = Resources.Load("Audio/SpaceBarSound") as AudioClip;
+        SpaceBarSounds.Play();
     }
 
-
+    void Update()
+    {
+       
+        
+        if (Input.GetKeyDown("Space"))
+        {
+            SpaceBarSounds.Play();
+        }
+    }
+    
 }
