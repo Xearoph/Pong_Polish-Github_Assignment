@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class AddZoomScript : MonoBehaviour
 {
-    private GameObject Ball;
+    private GameObject ball;
     // Start is called before the first frame update
     void Start()
     {
 
-        Ball = GameObject.FindGameObjectWithTag("Player");
-        Ball.AddComponent<ZoomScore>();
+        ball = GameObject.FindGameObjectWithTag("Player");
+        ball.AddComponent<ZoomScore>();
     }
 
     // Update is called once per frame
