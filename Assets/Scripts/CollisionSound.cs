@@ -10,19 +10,25 @@ public class CollisionSound : MonoBehaviour
     void Start()
     {
         ball = GameObject.FindGameObjectWithTag("Player");
-        ball.AddComponent<CollisionSound>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        if (!ball.TryGetComponent<CollisionSound>(out _))
+        {
+            Debug.Log("script added");
+            ball.AddComponent<CollisionSound>();
+        }
         
     }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject)
         {
             
+            Debug.Log("tok!");
+            
         }
+
     }
+
 }
+    
