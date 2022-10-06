@@ -6,14 +6,20 @@ using UnityEngine;
 public class GoalSoundEffect : MonoBehaviour
 {
     private AudioSource audioS;
-    public GameObject player;
+    private GameObject player;
     private float volume = 0.6f;
 
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         //Add temporary audiosource component
         audioS = gameObject.AddComponent<AudioSource>();
-        player.AddComponent<GoalSoundEffect>();
+
+        if(!player.TryGetComponent<GoalSoundEffect>(out _))
+        {
+            player.AddComponent<GoalSoundEffect>();
+        }
+
         //Load the audioclip from the resource map
         //Change the volume of the temporary audiosource
         audioS.volume = volume;
