@@ -19,12 +19,14 @@ public class GoalExplosion : MonoBehaviour
     {
         if (posBall.position.x >  rightPLayer.position.x+2)
         {
+            objToSpawn.transform.position=posBall.position;
             objToSpawn.AddComponent<ParticleSystem>();
 
             Destroy(objToSpawn,2.5f);
         }
         else if (posBall.position.x < leftPLayer.position.x-2)
         {
+            objToSpawn.transform.position = posBall.position;
             objToSpawn.AddComponent<ParticleSystem>();
             Destroy(objToSpawn,2.5f);
         }
