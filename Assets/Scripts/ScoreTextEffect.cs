@@ -1,3 +1,11 @@
+// Made by: Irmin Verhoeff
+// Version: 1.0.0
+
+// This script handles the effect for the score numbers, which happens after a point is scored.
+// It enlarges and fades away the score number, then returns it to it's original size and resets it's opacity
+
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,22 +23,23 @@ public class ScoreTextEffect : MonoBehaviour
     [SerializeField] float _fontSizeChangeValue;
     [SerializeField] float alphaChangeValue;
 
-    ParticleSystem[] _playerScoreParticeSystems;
+    //ParticleSystem[] _playerScoreParticeSystems;
 
     BallMovement ballMovement;
 
     int[] _playersScore = {0, 0};
 
-    //bool isPlay;
-
     // Start is called before the first frame update
     void Start()
     {
+
+        // First, i get the playerscore gameobjects which store the score number
         player1Score = GameObject.Find("Player1Score");
         player2Score = GameObject.Find("Player2Score");
         Debug.Log($"player 1 score: {player1Score.name}");
         Debug.Log($"player 2 score: {player2Score.name}");
 
+        /* This was an idea to use a particle system somewhere, but i think it's unecessary 
         _playerScoreParticeSystems = new ParticleSystem[2];
 
         if (!player1Score.TryGetComponent<ParticleSystem>(out _playerScoreParticeSystems[0]) && 
@@ -40,7 +49,9 @@ public class ScoreTextEffect : MonoBehaviour
             _playerScoreParticeSystems[1] = player2Score.AddComponent<ParticleSystem>();
             Debug.Log($"Particle systems added to TMPro score elements of player 1 and player 2");
         }
+        */
 
+        // Then i get their components
         if (!player1Score.TryGetComponent<TextMeshProUGUI>(out player1TMPGUI))
         {
             Debug.Log($"Couldn't find player 1 score text, Text Mesh Pro component");
@@ -61,8 +72,12 @@ public class ScoreTextEffect : MonoBehaviour
                 $" the score effect script needs to be changed - Irmin Verhoeff");
         }
 
+        // I also need the Ballmovement script, because this is where i detect a point being scored
         ballMovement = FindObjectOfType<BallMovement>();
 
+        // I store the score values locally in this script
+        // This way, when there is a change, we can deduce a point has been scored
+        // You can also see this in FixedUpdate
         _playersScore[0] = ballMovement.playerScoreNumber[0];
         _playersScore[1] = ballMovement.playerScoreNumber[1];
     }
@@ -75,8 +90,6 @@ public class ScoreTextEffect : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Debug.Log($"player1Score: {playersScore[0]}");
-        //Debug.Log($"player2Score: {playersScore[1]}");
         if (_playersScore[0] != ballMovement.playerScoreNumber[0])
         {
             Debug.Log("change detected play false");
@@ -96,7 +109,12 @@ public class ScoreTextEffect : MonoBehaviour
         //Debug.Log($"ballmovement {ballMovement.playerScoreNumber[0]}");
     }
 
-    // false is player 1, true is player 2
+    // BEHOLD! the mighty Coroutine,
+    // With this i make it so my effect can run syncronously with other processes, and time it perfectly.
+
+    // yield return new WaitForSeconds(time) is used to time the effect
+
+    // false is to play the effect for player 1, true is for player 2
     IEnumerator PlayEffect(bool whichPlayerScored)
     {
         if (whichPlayerScored)
@@ -132,7 +150,7 @@ public class ScoreTextEffect : MonoBehaviour
         player1TMPGUI.fontSize = scoreDefaultSize;
         player2TMPGUI.fontSize = scoreDefaultSize;
 
-        // Now the Coroutine can stop
+        // Now the Coroutine can stop, (i don't know if i need to use StopCoroutine)
         StopCoroutine("PlayEffect");
         yield return null;
     }
