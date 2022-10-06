@@ -9,7 +9,7 @@ public class StartGameText : MonoBehaviour
         ballMovement = GameObject.FindGameObjectWithTag("Player").GetComponent<BallMovement>();
         playText = GameObject.FindGameObjectWithTag("PlayText");
     }
-    // Update is called every frame
+    // Een verstopte conflict
     void Update()
     {
         if (ballMovement.isPlay) playText.SetActive(false);
