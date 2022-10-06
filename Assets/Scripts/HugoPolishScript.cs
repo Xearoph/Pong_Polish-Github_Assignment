@@ -4,15 +4,41 @@ using UnityEngine;
 
 public class HugoPolishScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public GameObject hugoScript;
+
+    public AudioSource ballPlayerCollission;
+
+    public AudioClip Paaaaarrya;
+    public void Start()
+    { 
+        ballPlayerCollission = gameObject.AddComponent<AudioSource>();
+        ballPlayerCollission.clip = Resources.Load<AudioClip>("Audio/Parry_Ball_Sound");
+        ballPlayerCollission.Play();
     }
 
-    // Update is called once per frame
-    void Update()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        if (collision.gameObject.tag == "PlayerLeft")
+        {
+
+        }
+        else if (collision.gameObject.tag == "PlayerRight")
+        {
+
+        }
     }
 }
