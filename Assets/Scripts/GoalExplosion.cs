@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 public class GoalExplosion : MonoBehaviour
 {
-
     GameObject objToSpawn;
     Transform posBall;
     Transform leftPLayer;
@@ -16,11 +15,8 @@ public class GoalExplosion : MonoBehaviour
         rightPLayer = GameObject.FindGameObjectWithTag("PlayerRight").GetComponent<Transform>();
         objToSpawn = new GameObject("empty object");
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
         if (posBall.position.x >  rightPLayer.position.x+2)
         {
             objToSpawn.AddComponent<ParticleSystem>();
@@ -35,7 +31,5 @@ public class GoalExplosion : MonoBehaviour
         {
             objToSpawn = new GameObject("empty object");
         }
-        
     }
 }
-
