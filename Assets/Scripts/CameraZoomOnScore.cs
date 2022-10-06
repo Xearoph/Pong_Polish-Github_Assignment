@@ -8,6 +8,8 @@ public class CameraZoomOnScore : MonoBehaviour
     Transform ball;
     float ballIsPastPlayer = 14.84f;
     Camera camera;
+    float zoomSpeed = 50f;
+    float targetZoom = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +34,11 @@ public class CameraZoomOnScore : MonoBehaviour
 
     void SetCameraSize()
     {
-        camera.fieldOfView = Mathf.MoveTowards(cam.fieldOfView, target, zoomSpeed * Time.deltaTime);
+        if (camera.orthographicSize > 0)
+        {
+            targetZoom -= 1f;
+            camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, targetZoom, Time.deltaTime);
+        }
+        
     }
 }
