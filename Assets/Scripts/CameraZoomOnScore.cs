@@ -8,27 +8,35 @@ public class CameraZoomOnScore : MonoBehaviour
     Transform ball;
     float ballIsPastPlayer = 14.84f;
     Camera camera;
-    float zoomSpeed = 50f;
     float targetZoom = 10f;
+    float zoomOut = 0;
+    float followSpeed = 4;
 
     // Start is called before the first frame update
     void Start()
     {
         ball = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         camera = FindObjectOfType<Camera>();
-        Debug.Log(camera.transform.name);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(ball.position.x > ballIsPastPlayer)
+        if (ball.position.x > ballIsPastPlayer)
         {
             SetCameraSize();
         }
-        else if(ball.position.x < -ballIsPastPlayer)
+        else if (ball.position.x < -ballIsPastPlayer)
         {
             SetCameraSize();
+        }
+        else
+        {
+            if (camera.orthographicSize >= 10) return;
+
+            zoomOut += 0.1f;
+            camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, zoomOut, Time.deltaTime);
+            camera.transform.position = new Vector3(0, 0, -10);
         }
     }
 
@@ -36,9 +44,9 @@ public class CameraZoomOnScore : MonoBehaviour
     {
         if (camera.orthographicSize > 0)
         {
-            targetZoom -= 1f;
+            camera.transform.position = new Vector3(Mathf.Lerp(camera.transform.position.x, ball.position.x, Time.deltaTime * followSpeed), Mathf.Lerp(camera.transform.position.y, ball.position.y, Time.deltaTime * followSpeed), -10);
+            targetZoom -= 0.1f;
             camera.orthographicSize = Mathf.Lerp(camera.orthographicSize, targetZoom, Time.deltaTime);
         }
-        
     }
 }
