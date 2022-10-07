@@ -3,24 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelColour : MonoBehaviour
-{
-    public GameObject[] walls;
-    public MeshRenderer materialChange;
+{ 
+    GameObject player;
+    [SerializeField] SpriteRenderer materialChange;
     private void Start()
     {
-        walls = GameObject.FindGameObjectsWithTag("Wall" + "BoundRight" + "BoundLeft");
-        materialChange = GetComponent<MeshRenderer>();
+        
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void Awake()
     {
-        if (collision.gameObject.tag == "PlayerLeft" || collision.gameObject.tag == "PlayerRight")
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (!player.TryGetComponent<LevelColour>(out _))
         {
+            // add script to gameobject
+            player.AddComponent<LevelColour>();
+        }
+
+    }
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag == "PlayerLeft" || other.gameObject.tag == "PlayerRight")
+        {
+            materialChange.GetComponent<SpriteRenderer>();
+            Debug.Log("HOIWERHJWEUH");
             ChangeColour();
         }
     }
     void ChangeColour()
     {
-        materialChange.material.color = Random.ColorHSV(0f, 1f, 1f, 1);
+        Debug.Log("AHHHHHHHHH");
+        materialChange.color = Color.blue;
     }
 }
