@@ -5,29 +5,33 @@ using UnityEngine;
 public class ZoomScore : MonoBehaviour
 {
     GameObject ball;
-    Camera thiscamera;
-    // Start is called before the first frame update
+    Camera thisCamera;
     void Start()
     {
         ball = GameObject.FindGameObjectWithTag("Player");
-        thiscamera = Camera.main;
+        thisCamera = Camera.main;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-        MoveCamera(ball.transform.position);
+        StartCoroutine(ThisCoroutine());
     }
 
-    void MoveCamera(Vector3 transformation)
+    IEnumerator ThisCoroutine()
     {
-        thiscamera.transform.position = Vector3.MoveTowards(transform.position, transformation, .001f * Time.deltaTime);
-    }
+        float target = 0f;
+        while (thisCamera.orthographicSize >= 4f)
+        {
+            target -= 1f;
+            thisCamera.orthographicSize = Mathf.Lerp(thisCamera.orthographicSize, target, Time.deltaTime);
+            yield return new WaitForSecondsRealtime(.01f);
+        }
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        while (thisCamera.orthographicSize < 10f)
+        {
+            target += 1f;
+            thisCamera.orthographicSize = Mathf.Lerp(thisCamera.orthographicSize, target, Time.deltaTime);
+            yield return new WaitForSecondsRealtime(.01f);
+        }
     }
 }
