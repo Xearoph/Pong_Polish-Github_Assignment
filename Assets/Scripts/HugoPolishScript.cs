@@ -4,41 +4,42 @@ using UnityEngine;
 
 public class HugoPolishScript : MonoBehaviour
 {
-    public GameObject hugoScript;
-
     public AudioSource ballPlayerCollission;
 
-    public AudioClip Paaaaarrya;
+
+    GameObject playerBalkLeft;
+    GameObject playerBalkRight;
+
     public void Start()
-    { 
+    {
+        playerBalkLeft = GameObject.FindGameObjectWithTag("PlayerLeft");
+        playerBalkRight = GameObject.FindGameObjectWithTag("PlayerRight");
+
+        GameObject.FindObjectOfType<HugoPolishScript>();
+        if (!playerBalkLeft.TryGetComponent<HugoPolishScript>(out _))
+        {
+            playerBalkLeft.AddComponent<HugoPolishScript>();
+        }
+
+        if (!playerBalkRight.TryGetComponent<HugoPolishScript>(out _))
+        {
+            playerBalkRight.AddComponent<HugoPolishScript>();
+        }
+
+
         ballPlayerCollission = gameObject.AddComponent<AudioSource>();
         ballPlayerCollission.clip = Resources.Load<AudioClip>("Audio/Parry_Ball_Sound");
-        ballPlayerCollission.Play();
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "PlayerLeft")
+        if (collision.gameObject)
         {
-
+            ballPlayerCollission.Play();
         }
-        else if (collision.gameObject.tag == "PlayerRight")
-        {
 
-        }
     }
 }
