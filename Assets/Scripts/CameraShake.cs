@@ -9,7 +9,7 @@ public class CameraShake : MonoBehaviour
     // the higher the shakepower the more intense.
     public float shakePower = 1f;
     // time the camera shakes.
-    public float shakeLength = 1f;
+    public float shakeLength = 2f;
     // put camera on here.
     public Transform mainCamera;
     // boolean to check if its still shaking or not.
@@ -20,15 +20,15 @@ public class CameraShake : MonoBehaviour
     void Start()
     {
         // save the camera's startposition.
-        cameraStartPosition = mainCamera.position;
-       
+         cameraStartPosition = mainCamera.position;
+        
     }
 
     
     // Update is called once per frame
     void Update()
     {
-       
+        mainCamera.position = new Vector3(0, 0, -10);
 
         ballPosition = ball.transform.position;
         if(ballPosition.x >= 16.8 || ballPosition.x <= -16.8)
@@ -54,8 +54,8 @@ public class CameraShake : MonoBehaviour
             // calculate random values for the x & y axis.
             float x = Random.Range(-1f, 1f) * shakePower;
             float y = Random.Range(-1f, 1f) * shakePower;
-            mainCamera.transform.position = new Vector3(x, y, -10);
-           timeElapsed += Time.deltaTime * 1;
+            mainCamera.position = new Vector3(x, y, -10);
+           timeElapsed += Time.deltaTime * 10;
             yield return 0;
             isShaking = false;          
       }
